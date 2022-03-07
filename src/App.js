@@ -1,13 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { ReactComponent as BackspaceImg } from './backspace.svg';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
+    <div>
+      <header></header>
       <body>
         <div className="keyboard">
           <button className="key" data-key="Q">
@@ -93,7 +90,7 @@ function App() {
           <button className="key" data-key="M">
             M
           </button>
-          <button className="key" data-backspace>
+          <button className="key large" data-backspace>
             <BackspaceImg />
           </button>
         </div>
