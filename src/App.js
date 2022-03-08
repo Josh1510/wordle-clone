@@ -1,14 +1,12 @@
 import './App.css';
-import AnswerGrid from './components/AnswerGrid';
-import Keyboard from './components/Keyboard';
+import GameController from './components/GameController';
 
 function App() {
   return (
     <div>
       <header></header>
       <div className="game">
-        <AnswerGrid />
-        <Keyboard />
+        <GameController />
       </div>
     </div>
   );

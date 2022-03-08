@@ -78,13 +78,13 @@ const Keyboard = () => {
       <button className="keyboard__key" data-key="V">
         V
       </button>
-      <button className="keyboard__key" data-key="B" data-state="correct">
+      <button className="keyboard__key" data-key="B">
         B
       </button>
-      <button className="keyboard__key" data-key="N" data-state="incorrect-position">
+      <button className="keyboard__key" data-key="N">
         N
       </button>
-      <button className="keyboard__key" data-key="M" data-state="incorrect">
+      <button className="keyboard__key" data-key="M">
         M
       </button>
       <button className="keyboard__key keyboard__large" data-backspace>
