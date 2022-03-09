@@ -1,9 +1,9 @@
 import { ReactComponent as BackspaceImg } from '../backspace.svg';
 import './Keyboard.css';
 
-const Keyboard = () => {
+const Keyboard = ({ handleClick }) => {
   return (
-    <div className="keyboard">
+    <div className="keyboard" onClick={handleClick}>
       <button className="keyboard__key" data-key="Q">
         Q
       </button>
@@ -87,8 +87,8 @@ const Keyboard = () => {
       <button className="keyboard__key" data-key="M">
         M
       </button>
-      <button className="keyboard__key keyboard__large" data-backspace>
-        <BackspaceImg />
+      <button className="keyboard__key keyboard__large" data-backspace="backspace">
+        <BackspaceImg className="keyboard__backspace" />
       </button>
     </div>
   );
