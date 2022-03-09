@@ -23,19 +23,18 @@ const GameController = () => {
   useEffect(() => {
     const handleKeyPress = (event) => {
       //regex to fire function only if a letter key is pressed
-      if (event.key.match(/[a-z]/)) {
-        console.log(event.key);
+      if (event.key.match(/(\b[a-z{1}]\b)/)) {
+        console.log(`letter key: ${event.key}`);
         return;
       }
       if (event.key === 'Backspace' || event.key === 'Delete') {
-        console.log(event.key);
+        console.log(`backspace: ${event.key}`);
         return;
       }
       if (event.key === 'Enter') {
-        console.log(event.key);
+        console.log(`enter: ${event.key}`);
         return;
       }
-      console.log(event);
     };
 
     document.addEventListener('keydown', handleKeyPress);
