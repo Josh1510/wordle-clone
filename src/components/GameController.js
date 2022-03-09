@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
-import AnswerGrid from './AnswerGrid';
-import Keyboard from './Keyboard';
+import React, { useEffect, useState } from 'react';
+import AnswerGrid from './answerGrid/AnswerGrid';
+import Keyboard from './keyboard/Keyboard';
 
 const GameController = () => {
+  const [gameActive, setGameActive] = useState(true);
+  const [gameWon, setGameWon] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+
   // Handles the user clicking on the keyboard with their mouse
   const handleClick = (event) => {
     if (event.target.matches('[data-key]')) {
@@ -43,6 +47,10 @@ const GameController = () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
+
+  // const letterPressed = (key) => {
+  //     document.querySelector
+  // }
 
   return (
     <div>
