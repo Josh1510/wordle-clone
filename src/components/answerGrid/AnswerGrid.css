@@ -8,6 +8,7 @@
   gap: 0.25em;
 }
 
+/* need to update repeat value based on max word length */
 .answer-grid__row {
   display: grid;
   grid-template-columns: repeat(15, minmax(auto, 1.25em));
