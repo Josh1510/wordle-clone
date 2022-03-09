@@ -55,3 +55,8 @@
   --saturation: 29%;
   --lightness: 43%;
 }
+
+/* allows svg to be clicked through without additional handler */
+.keyboard__backspace {
+  pointer-events: none;
+}
