@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import './AnswerGrid.css';
 import { MAX_WORD_LENGTH, MAX_ATTEMPTS } from '../../constants/settings';
+import GuessedRow from './GuessedRow';
+import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';
 
-const AnswerGrid = () => {
-  let guesses = [];
+const AnswerGrid = ({ guesses, currentGuess }) => {
+  let emptyRows = Array.from({ length: MAX_ATTEMPTS - guesses.length - 1 }, (v, i) => i);
 
-  let emptyRows = Array.from({ length: MAX_ATTEMPTS - guesses.length }, (v, i) => i);
-
-  console.log(emptyRows);
   return (
     <div className="answer-grid-container">
+      {guesses.map((guess, i) => (
+        <GuessedRow key={i} guess={guess} />
+      ))}
+
+      <CurrentRow currentGuess={currentGuess} />
+
       {emptyRows.map((_, i) => (
         <EmptyRow key={i} />
       ))}
