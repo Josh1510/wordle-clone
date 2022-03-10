@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import AnswerGrid from './answerGrid/AnswerGrid';
 import Keyboard from './keyboard/Keyboard';
+import { START_DATE } from '../constants/settings';
+import { ANSWER_LIST } from '../constants/answerList';
+import { TODAY_ANSWER } from '../constants/settings';
 
 const GameController = () => {
   const [gameActive, setGameActive] = useState(true);
   const [gameWon, setGameWon] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+
+  const [guesses, setGuesses] = useState(['helll', 'ppppz', 'lelos']);
+  const [currentGuess, setCurrentGuess] = useState('hem  ');
 
   // Handles the user clicking on the keyboard with their mouse
   const handleClick = (event) => {
@@ -48,13 +54,9 @@ const GameController = () => {
     };
   }, []);
 
-  // const letterPressed = (key) => {
-  //     document.querySelector
-  // }
-
   return (
     <div>
-      <AnswerGrid />
+      <AnswerGrid guesses={guesses} currentGuess={currentGuess} />
       <Keyboard handleClick={handleClick} />
     </div>
   );
