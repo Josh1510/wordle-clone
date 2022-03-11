@@ -10,8 +10,10 @@ const GameController = () => {
   const [gameWon, setGameWon] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  const [guesses, setGuesses] = useState(['helll', 'ppppz', 'lelos']);
+  const [guesses, setGuesses] = useState(['wahht', 'aaavz', 'aahht']);
   const [currentGuess, setCurrentGuess] = useState('hem  ');
+
+  console.log(TODAY_ANSWER);
 
   // Handles the user clicking on the keyboard with their mouse
   const handleClick = (event) => {
