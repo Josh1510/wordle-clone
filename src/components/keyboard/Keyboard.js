@@ -1,7 +1,54 @@
+import React, { useEffect } from 'react';
 import { ReactComponent as BackspaceImg } from '../../backspace.svg';
 import './Keyboard.css';
 
-const Keyboard = ({ handleClick }) => {
+const Keyboard = ({ currentGuess, setCurrentGuess }) => {
+  // Handles the user clicking on the keyboard with their mouse
+  const handleClick = (event) => {
+    if (event.target.matches('[data-key]') && currentGuess.length < 5) {
+      setCurrentGuess((currentGuess) => [...currentGuess, event.target.dataset.key]);
+      console.log(event.target.dataset.key);
+      console.log(currentGuess);
+      return;
+    }
+    if (event.target.matches('[data-backspace]') && currentGuess.length > 0) {
+      setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+      console.log(event.target.dataset.backspace);
+      return;
+    }
+    if (event.target.matches('[data-enter]')) {
+      console.log(event.target.dataset.enter);
+      return;
+    }
+  };
+
+  // Handles keyboard input by the user
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      //regex to fire function only if a letter key is pressed
+      if (event.key.match(/(\b[a-z{1}]\b)/) && currentGuess.length < 5) {
+        setCurrentGuess((currentGuess) => [...currentGuess, event.key]);
+        console.log(`letter key: ${event.key}`);
+        return;
+      }
+      if (event.key === 'Backspace' || event.key === 'Delete') {
+        setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+        console.log(`backspace: ${event.key}`);
+        return;
+      }
+      if (event.key === 'Enter') {
+        console.log(`enter: ${event.key}`);
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
     <div className="keyboard" onClick={handleClick}>
       <button className="keyboard__key" data-key="Q">
