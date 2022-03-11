@@ -6,6 +6,8 @@ export default function GuessedRow({ guess }) {
   let rowGuess = Array.from(guess);
   let answer = Array.from(TODAY_ANSWER);
 
+  let results = ['incorrect', 'incorrect', 'incorrect', 'incorrect', 'incorrect'];
+
   // return the first index of matching letter
   const findIndex = (letter) => {
     return answer.indexOf(letter);
@@ -14,22 +16,27 @@ export default function GuessedRow({ guess }) {
   // checks if the letter is in the answer, returns data-state 'correct' if it's
   // in the correct position, 'incorrect-position' if it's in the word but wrong spot,
   // 'incorrect' if it's not in the word
-  const checkGuess = (letter, i) => {
-    if (TODAY_ANSWER[i] === letter) {
-      answer.splice(findIndex(letter), 1);
-      return 'correct';
+  const checkGuess = () => {
+    for (let i = 0; i < answer.length; i++) {
+      if (TODAY_ANSWER[i] === rowGuess[i]) {
+        results.splice(i, 1, 'correct');
+        answer.splice(i, 1, '');
+      }
     }
-    if (answer.includes(letter)) {
-      answer.splice(findIndex(letter), 1);
-      return 'incorrect-position';
+    for (let i = 0; i < answer.length; i++) {
+      if (answer.includes(rowGuess[i])) {
+        results.splice(i, 1, 'incorrect-position');
+        answer.splice(findIndex(rowGuess[i]), 1, '');
+      }
     }
-    return 'incorrect';
   };
+
+  checkGuess();
 
   return (
     <div className="answer-grid__row">
       {rowGuess.map((letter, i) => (
-        <div className="answer-grid__tile" data-state={checkGuess(letter, i)} key={i}>
+        <div className="answer-grid__tile" data-state={results[i]} key={i}>
           {letter}
         </div>
       ))}
