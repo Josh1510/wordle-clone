@@ -50,3 +50,31 @@
 .answer-grid__tile[data-state='notConfirmed'] {
   border: 2px solid var(--gridBorder2);
 }
+
+.answer-grid__row.invalid {
+  animation: invalid 400ms ease-in-out;
+}
+
+@keyframes invalid {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-0.5rem, 0);
+  }
+  30% {
+    transform: translate(0.75rem, 0);
+  }
+  50% {
+    transform: translate(-0.75rem, 0);
+  }
+  70% {
+    transform: translate(0.75rem, 0);
+  }
+  90% {
+    transform: translate(-0.5rem, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
