@@ -11,8 +11,8 @@ const GameController = () => {
   const [gameWon, setGameWon] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  const [guesses, setGuesses] = useState(['wahht', 'aaavz', 'aahht']);
-  const [currentGuess, setCurrentGuess] = useState(['h', 'e', 'm']);
+  const [guesses, setGuesses] = useState([]);
+  const [currentGuess, setCurrentGuess] = useState([]);
 
   const [isAnimating, setIsAnimating] = useState(false);
 
