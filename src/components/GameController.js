@@ -14,31 +14,25 @@ const GameController = () => {
   const [guesses, setGuesses] = useState(['wahht', 'aaavz', 'aahht']);
   const [currentGuess, setCurrentGuess] = useState(['h', 'e', 'm']);
 
-  const [notEnoughLetters, setNotEnoughLetters] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const [alertVisible, setAlertVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
 
   console.log(TODAY_ANSWER);
 
   return (
     <div>
-      {alertVisible && <Alert errorMessage={errorMessage} />}
-      <AnswerGrid
-        guesses={guesses}
-        currentGuess={currentGuess}
-        notEnoughLetters={notEnoughLetters}
-        setAlertVisible={setAlertVisible}
-        setErrorMessage={setErrorMessage}
-      />
+      {isAnimating && <Alert alertMessage={alertMessage} />}
+      <AnswerGrid guesses={guesses} currentGuess={currentGuess} isAnimating={isAnimating} />
       <Keyboard
         currentGuess={currentGuess}
         setCurrentGuess={setCurrentGuess}
         guesses={guesses}
         setGuesses={setGuesses}
-        setNotEnoughLetters={setNotEnoughLetters}
+        setIsAnimating={setIsAnimating}
         setAlertVisible={setAlertVisible}
-        setErrorMessage={setErrorMessage}
+        setAlertMessage={setAlertMessage}
       />
     </div>
   );
