@@ -1,25 +1,38 @@
 import React, { useEffect } from 'react';
 import { ReactComponent as BackspaceImg } from '../../backspace.svg';
 import './Keyboard.css';
+import { ALLOWED_GUESSES } from '../../constants/allowedGuesses';
+import { ANSWER_LIST } from '../../constants/answerList';
 
-const Keyboard = ({ currentGuess, setCurrentGuess }) => {
+const Keyboard = ({ currentGuess, setCurrentGuess, guesses, setGuesses, setNotEnoughLetters, setAlertVisible, setErrorMessage }) => {
   // Handles the user clicking on the keyboard with their mouse
   const handleClick = (event) => {
     if (event.target.matches('[data-key]') && currentGuess.length < 5) {
       setCurrentGuess((currentGuess) => [...currentGuess, event.target.dataset.key]);
-      console.log(event.target.dataset.key);
-      console.log(currentGuess);
       return;
     }
     if (event.target.matches('[data-backspace]') && currentGuess.length > 0) {
       setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
-      console.log(event.target.dataset.backspace);
       return;
     }
-    if (event.target.matches('[data-enter]')) {
-      console.log(event.target.dataset.enter);
-      return;
+    if (event.target.matches('[data-enter]') && currentGuess.length === 5) {
+      let guess = currentGuess.join('').toLowerCase();
+      if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
+        setGuesses((guesses) => [...guesses, guess]);
+        setCurrentGuess('');
+        return;
+      }
     }
+    setNotEnoughLetters(true);
+    setAlertVisible(true);
+    setErrorMessage('Not Enough Letters');
+    setTimeout(() => {
+      setNotEnoughLetters(false);
+    }, 400);
+    setTimeout(() => {
+      setAlertVisible(false);
+      setErrorMessage('');
+    }, 1500);
   };
 
   // Handles keyboard input by the user
@@ -37,6 +50,14 @@ const Keyboard = ({ currentGuess, setCurrentGuess }) => {
         return;
       }
       if (event.key === 'Enter') {
+        if (ALLOWED_GUESSES.includes(currentGuess.join(''))) {
+          console.log(`guess is ${currentGuess}`);
+          setGuesses((guesses) => [...guesses, currentGuess.join('')]);
+          setCurrentGuess('');
+          console.log(`guesses is ${guesses}`);
+          return;
+        }
+        console.log(`guess is ${currentGuess}`);
         console.log(`enter: ${event.key}`);
         return;
       }
