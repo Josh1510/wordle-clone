@@ -1,0 +1,27 @@
+.alert-container {
+  position: fixed;
+  z-index: 1;
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
+.alert__message {
+  background-color: var(--textColor);
+  font-size: clamp(0.75rem, 4vmin, 2.25rem);
+  color: var(--background);
+  padding: 0 1rem 0.5rem 1rem;
+  border-radius: 0.25em;
+  animation: fadeOut 1500ms ease-in-out;
+}
+
+@keyframes fadeOut {
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
