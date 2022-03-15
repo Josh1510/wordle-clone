@@ -4,62 +4,65 @@ import './Keyboard.css';
 import { ALLOWED_GUESSES } from '../../constants/allowedGuesses';
 import { ANSWER_LIST } from '../../constants/answerList';
 
-const Keyboard = ({ currentGuess, setCurrentGuess, guesses, setGuesses, setNotEnoughLetters, setAlertVisible, setErrorMessage }) => {
+const Keyboard = ({ currentGuess, setCurrentGuess, guesses, setGuesses, setIsAnimating, setAlertVisible, setAlertMessage }) => {
+  const onKeyPress = (key) => {
+    setCurrentGuess((currentGuess) => [...currentGuess, key]);
+  };
+
+  const onBackspace = () => {
+    setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+  };
+
+  const onEnter = (guess) => {
+    // If guess is allowed but not the correct guess move to next line
+    if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
+      setGuesses((guesses) => [...guesses, guess]);
+      setCurrentGuess('');
+      return;
+    }
+
+    //set the error message depending on the length of the guess
+    guess.length < 5 ? setAlertMessage('Not Enough Letters') : setAlertMessage('Not in word list');
+
+    // apply animation and show alert modal
+    setIsAnimating('invalid');
+    setAlertVisible(true);
+    setTimeout(() => {
+      setIsAnimating('');
+      setAlertVisible(false);
+      setAlertMessage('');
+    }, 1500);
+  };
+
   // Handles the user clicking on the keyboard with their mouse
   const handleClick = (event) => {
-    if (event.target.matches('[data-key]') && currentGuess.length < 5) {
-      setCurrentGuess((currentGuess) => [...currentGuess, event.target.dataset.key]);
+    if (currentGuess.length < 5 && event.target.matches('[data-key]')) {
+      onKeyPress(event.target.dataset.key);
       return;
     }
     if (event.target.matches('[data-backspace]') && currentGuess.length > 0) {
-      setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+      onBackspace();
       return;
     }
-    if (event.target.matches('[data-enter]') && currentGuess.length === 5) {
-      let guess = currentGuess.join('').toLowerCase();
-      if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
-        setGuesses((guesses) => [...guesses, guess]);
-        setCurrentGuess('');
-        return;
-      }
+    if (event.target.matches('[data-enter]')) {
+      onEnter(currentGuess.join('').toLowerCase());
     }
-    setNotEnoughLetters(true);
-    setAlertVisible(true);
-    setErrorMessage('Not Enough Letters');
-    setTimeout(() => {
-      setNotEnoughLetters(false);
-    }, 400);
-    setTimeout(() => {
-      setAlertVisible(false);
-      setErrorMessage('');
-    }, 1500);
   };
 
   // Handles keyboard input by the user
   useEffect(() => {
     const handleKeyPress = (event) => {
       //regex to fire function only if a letter key is pressed
-      if (event.key.match(/(\b[a-z{1}]\b)/) && currentGuess.length < 5) {
-        setCurrentGuess((currentGuess) => [...currentGuess, event.key]);
-        console.log(`letter key: ${event.key}`);
+      if (currentGuess.length < 5 && event.key.match(/(\b[a-z{1}]\b)/)) {
+        onKeyPress(event.key);
         return;
       }
       if (event.key === 'Backspace' || event.key === 'Delete') {
-        setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
-        console.log(`backspace: ${event.key}`);
+        onBackspace();
         return;
       }
       if (event.key === 'Enter') {
-        if (ALLOWED_GUESSES.includes(currentGuess.join(''))) {
-          console.log(`guess is ${currentGuess}`);
-          setGuesses((guesses) => [...guesses, currentGuess.join('')]);
-          setCurrentGuess('');
-          console.log(`guesses is ${guesses}`);
-          return;
-        }
-        console.log(`guess is ${currentGuess}`);
-        console.log(`enter: ${event.key}`);
-        return;
+        onEnter(currentGuess.join('').toLowerCase());
       }
     };
 
