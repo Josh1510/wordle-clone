@@ -4,6 +4,7 @@ import Keyboard from './keyboard/Keyboard';
 import { START_DATE } from '../constants/settings';
 import { ANSWER_LIST } from '../constants/answerList';
 import { TODAY_ANSWER } from '../constants/settings';
+import Alert from './answerGrid/alert/Alert';
 
 const GameController = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -13,12 +14,32 @@ const GameController = () => {
   const [guesses, setGuesses] = useState(['wahht', 'aaavz', 'aahht']);
   const [currentGuess, setCurrentGuess] = useState(['h', 'e', 'm']);
 
+  const [notEnoughLetters, setNotEnoughLetters] = useState(false);
+
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   console.log(TODAY_ANSWER);
 
   return (
     <div>
-      <AnswerGrid guesses={guesses} currentGuess={currentGuess} />
-      <Keyboard currentGuess={currentGuess} setCurrentGuess={setCurrentGuess} />
+      {alertVisible && <Alert errorMessage={errorMessage} />}
+      <AnswerGrid
+        guesses={guesses}
+        currentGuess={currentGuess}
+        notEnoughLetters={notEnoughLetters}
+        setAlertVisible={setAlertVisible}
+        setErrorMessage={setErrorMessage}
+      />
+      <Keyboard
+        currentGuess={currentGuess}
+        setCurrentGuess={setCurrentGuess}
+        guesses={guesses}
+        setGuesses={setGuesses}
+        setNotEnoughLetters={setNotEnoughLetters}
+        setAlertVisible={setAlertVisible}
+        setErrorMessage={setErrorMessage}
+      />
     </div>
   );
 };
