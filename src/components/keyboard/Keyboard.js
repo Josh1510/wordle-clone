@@ -50,6 +50,7 @@ const Keyboard = ({ currentGuess, setCurrentGuess, guesses, setGuesses, setIsAni
   };
 
   // Handles keyboard input by the user
+
   useEffect(() => {
     const handleKeyPress = (event) => {
       //regex to fire function only if a letter key is pressed
@@ -68,10 +69,10 @@ const Keyboard = ({ currentGuess, setCurrentGuess, guesses, setGuesses, setIsAni
 
     document.addEventListener('keydown', handleKeyPress);
 
-    return function cleanup() {
+    return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [onKeyPress, onBackspace, onEnter]);
 
   return (
     <div className="keyboard" onClick={handleClick}>
