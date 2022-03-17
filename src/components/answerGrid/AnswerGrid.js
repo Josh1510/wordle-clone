@@ -5,13 +5,13 @@ import GuessedRow from './GuessedRow';
 import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';
 
-const AnswerGrid = ({ guesses, currentGuess, isAnimating }) => {
+const AnswerGrid = ({ guesses, currentGuess, isAnimating, markKeyboard }) => {
   let emptyRows = Array.from({ length: MAX_ATTEMPTS - guesses.length - 1 }, (v, i) => i);
 
   return (
     <div className="answer-grid-container">
       {guesses.map((guess, i) => (
-        <GuessedRow key={i} guess={guess} />
+        <GuessedRow key={i} guess={guess} markKeyboard={markKeyboard} />
       ))}
 
       <CurrentRow currentGuess={currentGuess} isAnimating={isAnimating} />
