@@ -14,7 +14,7 @@ const GameController = () => {
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState([]);
 
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimating, setIsAnimating] = useState('');
 
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -22,7 +22,7 @@ const GameController = () => {
   console.log(TODAY_ANSWER);
 
   const applyAnimation = (animation, animationTime) => {
-    // apply animation and show alert modal
+    // apply animation for set duration
     setIsAnimating(animation);
     setTimeout(() => {
       setIsAnimating('');
@@ -48,12 +48,13 @@ const GameController = () => {
   };
 
   const gameOver = (status) => {
+    console.log(`stsus: ${status}`);
     if (status === 'win') {
       setGameWon(true);
       showAlert(`Winner! Congratulations ${TODAY_ANSWER} was todays word! Come back again tomorrow for a new word!`);
+    } else {
+      showAlert(`Game Over! Todays word was ${TODAY_ANSWER}. Try again tomorrow!`);
     }
-    showAlert(`Game Over! Todays word was ${TODAY_ANSWER}. Try again tomorrow!`);
-
     setGameActive(false);
   };
 
@@ -76,21 +77,16 @@ const GameController = () => {
   const onEnter = () => {
     if (!isGameActive) return;
 
+    console.log(guesses.length);
     // If guess is allowed but not the correct guess move to next line
     let guess = currentGuess.join('').toLowerCase();
 
     if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
       setGuesses((guesses) => [...guesses, guess]);
 
-      ////////////////
-      /// fix this ///
-      ////////////////
-      if (guess === TODAY_ANSWER || guesses.length === 6) {
+      if (guess === TODAY_ANSWER || guesses.length === 5) {
         if (guess === TODAY_ANSWER) {
           gameOver('win');
-          setCurrentGuess('');
-          setGameActive(false);
-          return;
         } else {
           gameOver();
         }
