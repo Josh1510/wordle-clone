@@ -106,11 +106,11 @@ const GameController = () => {
   };
 
   return (
-    <div>
+    <>
       {alertVisible && <Alert alertMessage={alertMessage} isGameActive={isGameActive} />}
       <AnswerGrid guesses={guesses} currentGuess={currentGuess} isAnimating={isAnimating} markKeyboard={markKeyboard} />
       <Keyboard currentGuess={currentGuess} onKeyPress={onKeyPress} onBackspace={onBackspace} onEnter={onEnter} />
-    </div>
+    </>
   );
 };
 
