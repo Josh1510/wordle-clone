@@ -1,10 +1,10 @@
 import React from 'react';
 import './Alert.css';
 
-export default function Alert({ alertMessage }) {
+export default function Alert({ alertMessage, isGameActive }) {
   return (
     <div className="alert-container">
-      <div className="alert__message">{alertMessage}</div>
+      <div className={isGameActive ? 'alert__message-fade' : 'alert__message-remain'}>{alertMessage}</div>
     </div>
   );
 }

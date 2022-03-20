@@ -7,7 +7,15 @@
   transform: translateX(-50%);
 }
 
-.alert__message {
+.alert__message-remain {
+  background-color: var(--textColor);
+  font-size: clamp(0.75rem, 4vmin, 2.25rem);
+  color: var(--background);
+  padding: 0 1rem 0.5rem 1rem;
+  border-radius: 0.25em;
+}
+
+.alert__message-fade {
   background-color: var(--textColor);
   font-size: clamp(0.75rem, 4vmin, 2.25rem);
   color: var(--background);
