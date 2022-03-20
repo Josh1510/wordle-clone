@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AnswerGrid from './answerGrid/AnswerGrid';
 import Keyboard from './keyboard/Keyboard';
-import { START_DATE } from '../constants/settings';
+
 import { ANSWER_LIST } from '../constants/answerList';
 import { TODAY_ANSWER } from '../constants/settings';
 import { ALLOWED_GUESSES } from '../constants/allowedGuesses';
@@ -22,15 +22,21 @@ const GameController = () => {
 
   console.log(TODAY_ANSWER);
 
-  const applyInvalidGuessAnimation = () => {
+  const applyAnimation = (animation, animationTime) => {
     // apply animation and show alert modal
-    setIsAnimating('invalid');
-    setAlertVisible(true);
+    setIsAnimating(animation);
     setTimeout(() => {
       setIsAnimating('');
+    }, animationTime);
+  };
+
+  const showAlert = (alert, alertTime) => {
+    setAlertMessage(alert);
+    setAlertVisible(true);
+    setTimeout(() => {
       setAlertVisible(false);
       setAlertMessage('');
-    }, 1500);
+    }, alertTime);
   };
 
   const markKeyboard = (letter, result) => {
@@ -63,16 +69,16 @@ const GameController = () => {
 
     //set the error message depending on the length of the guess
     if (guess.length < 5) {
-      setAlertMessage('Not Enough Letters');
+      showAlert('Not Enough Letters', 1500);
     } else {
-      setAlertMessage('Not in word list');
+      showAlert('Not in word list', 1500);
     }
-    applyInvalidGuessAnimation();
+    applyAnimation('invalid', 400);
   };
 
   return (
     <div>
-      {isAnimating && <Alert alertMessage={alertMessage} />}
+      {alertVisible && <Alert alertMessage={alertMessage} />}
       <AnswerGrid guesses={guesses} currentGuess={currentGuess} isAnimating={isAnimating} markKeyboard={markKeyboard} />
       <Keyboard currentGuess={currentGuess} onKeyPress={onKeyPress} onBackspace={onBackspace} onEnter={onEnter} />
     </div>
