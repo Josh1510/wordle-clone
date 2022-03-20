@@ -1,0 +1,7 @@
+.header-container {
+  display: flex;
+  justify-content: center;
+  color: var(--textColor);
+  font-size: 40px;
+  max-height: 50px;
+}
