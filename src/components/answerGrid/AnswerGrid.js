@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './AnswerGrid.css';
-import { MAX_WORD_LENGTH, MAX_ATTEMPTS } from '../../constants/settings';
+import { MAX_ATTEMPTS } from '../../constants/settings';
 import GuessedRow from './GuessedRow';
 import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';
