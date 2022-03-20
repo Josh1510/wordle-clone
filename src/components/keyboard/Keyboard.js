@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { ReactComponent as BackspaceImg } from '../../backspace.svg';
 import './Keyboard.css';
-import { ALLOWED_GUESSES } from '../../constants/allowedGuesses';
-import { ANSWER_LIST } from '../../constants/answerList';
 
 const Keyboard = ({ currentGuess, onKeyPress, onBackspace, onEnter }) => {
   // Handles the user clicking on the keyboard with their mouse
