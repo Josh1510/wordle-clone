@@ -8,9 +8,8 @@ import { ALLOWED_GUESSES } from '../constants/allowedGuesses';
 import Alert from './answerGrid/alert/Alert';
 
 const GameController = () => {
-  const [gameActive, setGameActive] = useState(true);
-  const [gameWon, setGameWon] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [isGameActive, setGameActive] = useState(true);
+  const [isGameWon, setGameWon] = useState(false);
 
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState([]);
@@ -33,10 +32,12 @@ const GameController = () => {
   const showAlert = (alert, alertTime) => {
     setAlertMessage(alert);
     setAlertVisible(true);
-    setTimeout(() => {
-      setAlertVisible(false);
-      setAlertMessage('');
-    }, alertTime);
+    if (!isNaN(alertTime)) {
+      setTimeout(() => {
+        setAlertVisible(false);
+        setAlertMessage('');
+      }, alertTime);
+    }
   };
 
   const markKeyboard = (letter, result) => {
@@ -46,8 +47,18 @@ const GameController = () => {
     keyToFlip.dataset.state = result;
   };
 
+  const gameOver = (status) => {
+    if (status === 'win') {
+      setGameWon(true);
+      showAlert(`Winner! Congratulations ${TODAY_ANSWER} was todays word! Come back again tomorrow for a new word!`);
+    }
+    showAlert(`Game Over! Todays word was ${TODAY_ANSWER}. Try again tomorrow!`);
+
+    setGameActive(false);
+  };
+
   const onKeyPress = (key) => {
-    if (currentGuess.length < 5) {
+    if (currentGuess.length < 5 && isGameActive) {
       setCurrentGuess((currentGuess) => [...currentGuess, key]);
       return;
     }
@@ -55,14 +66,36 @@ const GameController = () => {
   };
 
   const onBackspace = () => {
-    setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+    if (isGameActive) {
+      setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
+      return;
+    }
+    return;
   };
 
   const onEnter = () => {
+    if (!isGameActive) return;
+
     // If guess is allowed but not the correct guess move to next line
     let guess = currentGuess.join('').toLowerCase();
+
     if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
       setGuesses((guesses) => [...guesses, guess]);
+
+      ////////////////
+      /// fix this ///
+      ////////////////
+      if (guess === TODAY_ANSWER || guesses.length === 6) {
+        if (guess === TODAY_ANSWER) {
+          gameOver('win');
+          setCurrentGuess('');
+          setGameActive(false);
+          return;
+        } else {
+          gameOver();
+        }
+      }
+
       setCurrentGuess('');
       return;
     }
@@ -78,7 +111,7 @@ const GameController = () => {
 
   return (
     <div>
-      {alertVisible && <Alert alertMessage={alertMessage} />}
+      {alertVisible && <Alert alertMessage={alertMessage} isGameActive={isGameActive} />}
       <AnswerGrid guesses={guesses} currentGuess={currentGuess} isAnimating={isAnimating} markKeyboard={markKeyboard} />
       <Keyboard currentGuess={currentGuess} onKeyPress={onKeyPress} onBackspace={onBackspace} onEnter={onEnter} />
     </div>
