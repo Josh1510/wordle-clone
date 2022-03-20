@@ -6,7 +6,7 @@ import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';
 
 const AnswerGrid = ({ guesses, currentGuess, isAnimating, markKeyboard }) => {
-  let emptyRows = Array.from({ length: MAX_ATTEMPTS - guesses.length - 1 }, (v, i) => i);
+  const emptyRows = guesses.length < MAX_ATTEMPTS - 1 ? Array.from(Array(MAX_ATTEMPTS - 1 - guesses.length)) : [];
 
   return (
     <div className="answer-grid-container">
@@ -14,7 +14,7 @@ const AnswerGrid = ({ guesses, currentGuess, isAnimating, markKeyboard }) => {
         <GuessedRow key={i} guess={guess} markKeyboard={markKeyboard} />
       ))}
 
-      <CurrentRow currentGuess={currentGuess} isAnimating={isAnimating} />
+      {guesses.length < MAX_ATTEMPTS && <CurrentRow currentGuess={currentGuess} isAnimating={isAnimating} />}
 
       {emptyRows.map((_, i) => (
         <EmptyRow key={i} />
