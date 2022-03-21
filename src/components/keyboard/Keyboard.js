@@ -19,7 +19,6 @@ const Keyboard = ({ currentGuess, onKeyPress, onBackspace, onEnter }) => {
   };
 
   // Handles keyboard input by the user
-
   useEffect(() => {
     const handleKeyPress = (event) => {
       //regex to fire function only if a letter key is pressed

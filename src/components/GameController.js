@@ -5,7 +5,7 @@ import Keyboard from './keyboard/Keyboard';
 import { ANSWER_LIST } from '../constants/answerList';
 import { TODAY_ANSWER } from '../constants/settings';
 import { ALLOWED_GUESSES } from '../constants/allowedGuesses';
-import Alert from './answerGrid/alert/Alert';
+import Alert from './alert/Alert';
 
 const GameController = () => {
   const [isGameActive, setGameActive] = useState(true);
@@ -27,6 +27,7 @@ const GameController = () => {
     }, animationTime);
   };
 
+  // display alerts on screen
   const showAlert = (alert, alertTime) => {
     setAlertMessage(alert);
     setAlertVisible(true);
@@ -38,6 +39,7 @@ const GameController = () => {
     }
   };
 
+  // change the keyboard colours depending on guess results
   const markKeyboard = (letter, result) => {
     const keyToFlip = document.querySelector(`[data-keyboard] [data-key=${letter.toUpperCase()}]`);
     if (keyToFlip.dataset.state === 'correct') return;
@@ -45,6 +47,7 @@ const GameController = () => {
     keyToFlip.dataset.state = result;
   };
 
+  // set the game to over
   const gameOver = (status) => {
     if (status === 'win') {
       setGameWon(true);
@@ -55,6 +58,7 @@ const GameController = () => {
     setGameActive(false);
   };
 
+  // handle key/letter presses
   const onKeyPress = (key) => {
     if (currentGuess.length < 5 && isGameActive) {
       setCurrentGuess((currentGuess) => [...currentGuess, key]);
@@ -63,6 +67,7 @@ const GameController = () => {
     return;
   };
 
+  // handle backspace presses
   const onBackspace = () => {
     if (isGameActive) {
       setCurrentGuess((currentGuess) => [...currentGuess.slice(0, -1)]);
@@ -71,6 +76,7 @@ const GameController = () => {
     return;
   };
 
+  // handle enter presses
   const onEnter = () => {
     if (!isGameActive) return;
 
@@ -80,6 +86,7 @@ const GameController = () => {
     if (ALLOWED_GUESSES.includes(guess) || ANSWER_LIST.includes(guess)) {
       setGuesses((guesses) => [...guesses, guess]);
 
+      // check if the game is over
       if (guess === TODAY_ANSWER || guesses.length === 5) {
         if (guess === TODAY_ANSWER) {
           gameOver('win');

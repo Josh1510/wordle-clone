@@ -16,7 +16,6 @@ export default function GuessedRow({ guess, markKeyboard }) {
   // checks if the letter is in the answer, sets the data-state on the
   // row and the keyboard to 'correct', 'incorrect-position', or
   // 'incorrect' depending on result
-
   const checkGuess = () => {
     for (let i = 0; i < answer.length; i++) {
       if (TODAY_ANSWER[i] === rowGuess[i]) {
@@ -37,6 +36,7 @@ export default function GuessedRow({ guess, markKeyboard }) {
     }
   };
 
+  // check users guess against the answer
   checkGuess();
 
   return (
