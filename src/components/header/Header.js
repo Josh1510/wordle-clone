@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import gitHubLogo from '../../GitHub-Mark-Light-32px.png';
 
 export default function Header() {
   return (
@@ -9,7 +10,7 @@ export default function Header() {
         <a href="https://github.com/Josh1510/wordle-clone">
           <div className="gitHub-link__content">
             <div>GitHub Link</div>
-            <img src="GitHub-Mark-Light-32px.png" alt="GitHub Link" />
+            <img src={gitHubLogo} alt="GitHub Link" />
           </div>
         </a>
       </div>

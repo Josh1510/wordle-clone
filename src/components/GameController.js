@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AnswerGrid from './answerGrid/AnswerGrid';
 import Keyboard from './keyboard/Keyboard';
 
@@ -18,8 +18,6 @@ const GameController = () => {
 
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-
-  console.log(TODAY_ANSWER);
 
   const applyAnimation = (animation, animationTime) => {
     // apply animation for set duration
@@ -48,7 +46,6 @@ const GameController = () => {
   };
 
   const gameOver = (status) => {
-    console.log(`stsus: ${status}`);
     if (status === 'win') {
       setGameWon(true);
       showAlert(`Winner! Congratulations ${TODAY_ANSWER} was todays word! Come back again tomorrow for a new word!`);
@@ -77,7 +74,6 @@ const GameController = () => {
   const onEnter = () => {
     if (!isGameActive) return;
 
-    console.log(guesses.length);
     // If guess is allowed but not the correct guess move to next line
     let guess = currentGuess.join('').toLowerCase();
 

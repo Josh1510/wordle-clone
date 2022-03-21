@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MAX_WORD_LENGTH } from '../../constants/settings';
 
 export default function CurrentRow({ currentGuess, isAnimating }) {
