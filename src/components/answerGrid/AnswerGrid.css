@@ -51,7 +51,7 @@
   border: 2px solid var(--gridBorder2);
 }
 
-.answer-grid__row.invalid {
+.answer-grid__row.invalid-animation {
   animation: invalid 400ms ease-in-out;
 }
 
@@ -76,5 +76,24 @@
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+.tile-filled-animation {
+  animation: onLetterTyped linear;
+  animation-duration: 0.2s;
+}
+
+@keyframes onLetterTyped {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
