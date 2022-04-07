@@ -23,8 +23,6 @@ export default function GuessedRow({ guess, markKeyboard }) {
         answer.splice(i, 1, '');
         markKeyboard(rowGuess[i], 'correct');
       }
-    }
-    for (let i = 0; i < answer.length; i++) {
       if (!answer.includes(rowGuess[i])) {
         markKeyboard(rowGuess[i], 'incorrect');
       }
@@ -42,8 +40,8 @@ export default function GuessedRow({ guess, markKeyboard }) {
   return (
     <div className="answer-grid__row">
       {rowGuess.map((letter, i) => (
-        <div className="answer-grid__tile" data-state={results[i]} key={i}>
-          {letter}
+        <div className="answer-grid__tile result-reveal" data-state={results[i]} key={i}>
+          <div className="letter-container">{letter}</div>
         </div>
       ))}
     </div>

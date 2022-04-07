@@ -42,6 +42,7 @@ const GameController = () => {
   // change the keyboard colours depending on guess results
   const markKeyboard = (letter, result) => {
     const keyToFlip = document.querySelector(`[data-keyboard] [data-key=${letter.toUpperCase()}]`);
+    keyToFlip.classList.add('result-reveal');
     if (keyToFlip.dataset.state === 'correct') return;
 
     keyToFlip.dataset.state = result;

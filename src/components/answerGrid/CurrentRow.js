@@ -7,10 +7,10 @@ export default function CurrentRow({ currentGuess, isAnimating }) {
   const emptyTiles = Array.from({ length: MAX_WORD_LENGTH - roundGuess.length }, (v, i) => i);
 
   return (
-    <div className={`answer-grid__row ${isAnimating === 'invalid' ? 'invalid' : ''}`}>
+    <div className={`answer-grid__row ${isAnimating === 'invalid' ? 'invalid-animation' : ''}`}>
       {roundGuess.map((letter, i) => (
-        <div className="answer-grid__tile" data-state="notConfirmed" key={i}>
-          {letter}
+        <div className="answer-grid__tile tile-filled-animation" data-state="notConfirmed" key={i}>
+          <div className="letter-container">{letter}</div>
         </div>
       ))}
       {emptyTiles.map((i) => (
